@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to ODS</title>
+  <style>
+    @font-face { font-family: Inter; font-style: normal; font-weight: 100 900; font-display: swap; src: url('fonts/inter-latin.woff2') format('woff2'); }
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 100 800; font-display: swap; src: url('fonts/jetbrains-mono-latin.woff2') format('woff2'); }
+    @font-face { font-family: Sora; font-style: normal; font-weight: 100 800; font-display: swap; src: url('fonts/sora-latin-wght-normal.woff2') format('woff2'); }
+    body { margin: 0; background: #0f0f13; color: #e4e4e7; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    main { max-width: 820px; margin: 0 auto; padding: 40px 16px; }
+    .brand { display: flex; align-items: center; gap: 16px; margin: 0 0 14px; }
+    .brand img { height: 56px; width: auto; }
+    h1 { font-family: Sora, Inter, sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin: 0; background: linear-gradient(90deg, #e9d5ff, #b26bff 55%, #9d00ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .badge { display: inline-block; margin-top: 6px; font-size: 12px; color: #d7a4ff; background: rgba(157, 0, 255, 0.12); border: 1px solid rgba(157, 0, 255, 0.35); border-radius: 999px; padding: 3px 10px; }
+    .lead { color: #a1a1aa; margin: 0 0 24px; line-height: 1.5; }
+    .searchbox { position: relative; }
+.searchbox svg { position: absolute; left: 16px; top: 16px; width: 20px; height: 20px; color: #71717a; pointer-events: none; }
+.searchbox:focus-within svg { color: #d7a4ff; }
+#q { display: block; width: 100%; box-sizing: border-box; font-size: 16px; line-height: 24px; padding: 14px 52px 14px 48px; border-radius: 12px; border: 1px solid #27272a; background: #18181b; color: inherit; resize: none; overflow-y: hidden; max-height: 160px; font-family: inherit; }
+#clear { position: absolute; right: 10px; top: 10px; width: 32px; height: 32px; border: none; border-radius: 8px; background: transparent; color: #a1a1aa; font-size: 22px; line-height: 1; cursor: pointer; }
+#clear:hover { background: #27272a; color: #e4e4e7; }
+#clear[hidden] { display: none; }
+    #q { scrollbar-width: thin; scrollbar-color: #3f3f46 transparent; }
+    #q::placeholder { color: #71717a; }
+    #q:focus { outline: none; border-color: #9d00ff; box-shadow: 0 0 0 3px rgba(157, 0, 255, 0.25); }
+    #count { color: #71717a; font-size: 13px; margin: 14px 0; }
+    #recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    #recipes button { text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid #27272a; background: #18181b; color: #e4e4e7; font-family: inherit; font-size: 14px; cursor: pointer; }
+    #recipes button:hover { border-color: #9d00ff; background: #1f1f24; }
+    #recipes button:focus-visible { outline: 2px solid #9d00ff; outline-offset: 2px; }
+    .card { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
+    .card:has(.tag) { border-color: rgba(248, 113, 113, 0.45); }
+    .tag { display: block; width: fit-content; color: #f87171; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .title { color: #d7a4ff; font-size: 17px; font-weight: 600; text-decoration: none; }
+    .title:hover { text-decoration: underline; }
+    .path { color: #71717a; font-size: 12px; margin: 4px 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .snip { margin: 0; line-height: 1.6; color: #a1a1aa; }
+    mark { background: rgba(157, 0, 255, 0.22); color: inherit; padding: 0 2px; border-radius: 3px; }
+    summary { color: #a1a1aa; cursor: pointer; margin-top: 10px; font-size: 13px; }
+    summary:hover { color: #d7a4ff; }
+    pre { white-space: pre-wrap; background: #0f0f13; border: 1px solid #27272a; padding: 12px; border-radius: 8px; font-size: 12.5px; font-family: 'JetBrains Mono', ui-monospace, monospace; overflow-x: auto; color: #e4e4e7; }
+    .empty { color: #a1a1aa; }
+    .card .path a { color: #a1a1aa; text-decoration: none; }
+.card .path a:hover { color: #d7a4ff; text-decoration: underline; }
+details[open] > summary { font-size: 0; }
+details[open] > summary::marker { font-size: 13px; }
+details[open] > summary::after { content: 'Hide the full section'; font-size: 13px; }
+.help { margin-top: 20px; padding: 14px 16px; border: 1px dashed #3f3f46; border-radius: 12px; color: #a1a1aa; font-size: 14px; line-height: 1.6; }
+.help strong { color: #e4e4e7; }
+.help a { color: #d7a4ff; }
+footer { color: #71717a; font-size: 13px; margin-top: 40px; border-top: 1px solid #27272a; padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="brand">
+      <img src="ods-logo.png" alt="ODS logo" width="91" height="56">
+      <div>
+        <h1>How to ODS</h1>
+        <span class="badge">Built in ODS Portal with Qwen3.5-4B</span>
+      </div>
+    </header>
+    <p class="lead">Search every ODS guide, or paste an error message. Every result is quoted straight from the ODS repo, with a link to the exact line.</p>
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <textarea id="q" rows="1" placeholder="Search ODS, or paste an error or a whole log" aria-label="Search ODS" autocomplete="off" autofocus></textarea>
+      <button id="clear" type="button" aria-label="Clear search" hidden>×</button>
+    </div>
+    <div id="count"></div>
+    <div id="recipes"></div>
+    <div id="results"></div>
+    <footer>Built from the Osmantic/ODS repo. Results are quoted from its docs and scripts, not generated. Made in ODS Portal with Qwen3.5-4B.</footer>
+  </main>
+  <script src="data.js"></script>
+  <script src="search.js"></script>
+  <script src="snippet.js"></script>
+  <script src="recipes.js"></script>
+  <script src="render.js"></script>
+  <script src="logsplit.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

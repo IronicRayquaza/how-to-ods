@@ -1,0 +1,3 @@
+# A local copy of Osmantic/ODS for rebuilding data.js (see README)
+ods-source/
+node_modules/
